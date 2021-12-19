@@ -84,3 +84,14 @@ select DISTINCT last_name , round(months_between(sysdate,hire_date),0) as "Month
 select last_name, lpad(salary,15,'$') from employees; 
 
 select substr(last_name,1,8) || ' ' || LPAD(' ', salary / 1000,'*')as "EMPLOYEES AND THEIR SALARIES" from employees;
+
+/* Q11 */
+select last_name, round((sysdate-hire_date)/7, 0) TENURE from employees where department_id=90 order by TENURE desc;
+
+
+/* ------------- Exercice 4 -------------- */
+/* Q2 */
+select last_name, hire_date, TO_CHAR(hire_date, 'DAY, "the" ddspth "of" mounth, YYYY') REVIEW from employees;  
+
+/* Q3 */
+select last_name, hire_date, TO_CHAR(hire_date, 'DAY') DAY from employees order by mod(TO_CHAR(hire_date, 'D') + 5, 7);
