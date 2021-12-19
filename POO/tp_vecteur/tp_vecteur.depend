@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1639521399 source:/home/nh9/Desktop/S5/POO/TPs/tp_vecteur/main.cpp
+	<iostream>
+	"Vecteur.h"
+
+1639521274 /home/nh9/Desktop/S5/POO/TPs/tp_vecteur/include/Vecteur.h
+	<iostream>
+
+1639521365 source:/home/nh9/Desktop/S5/POO/TPs/tp_vecteur/src/Vecteur.cpp
+	"Vecteur.h"
+	<iostream>
+
+1639939394 source:/home/nh9/Documents/projects/S5/POO/tp_vecteur/src/Vecteur.cpp
+	"Vecteur.h"
+	<iostream>
+
+1639938969 /home/nh9/Documents/projects/S5/POO/tp_vecteur/include/Vecteur.h
+	<iostream>
+
+1639939375 source:/home/nh9/Documents/projects/S5/POO/tp_vecteur/main.cpp
+	<iostream>
+	"Vecteur.h"
+
