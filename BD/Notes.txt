@@ -1,0 +1,142 @@
+> Projection --> SELECT
+
+> Selection  --> WHERE
+
+> Jointure: (équijointure)
+	SQL: 
+		SELECT colonnes ...
+		FROM table_1 NATURAL JOIN table_2 
+		ON condition de jointure
+
+
+> Ronommage 'R=PROJECTION(R0, newatt1:att1)' --> les alias 'AS' 
+
+
+************** Les opérations ensemblistes ********************
+
+> Produit: 
+	SQL:
+		CROSS JOIN
+		or
+		SELECT colonnes ...
+		FROM table_1, table_2 (without condition)
+> Union:
+	La jointure d'union, permet de faire l'union de deux tables de structures quelconque
+	SQL: 
+		old syntax : 
+			SELECT colonnes
+			FROM table_1 UNION JOIN table_2 ON condition de jointure
+			
+		SELECT colonnes
+			FROM table_1 FULL JOIN table_2 ON condition de jointure
+
+> Intersection:
+	SQL:
+		SELECT colonnes ...
+		FROM table_1 INNER | NATURAL JOIN table_2 
+		ON condition de jointure
+	old syntax : 
+		SELECT colonnes ...
+		FROM table_1, table_2 
+		where table_1.pk = table_2.fk	
+
+> Différence:
+	Les relations doivent avoir le même schéma.
+	SQL: 
+		select A, B from R
+   		except
+		select C as A, D as B from S
+
+******************* Les Fonctions d'agrégation ************************
+
+
+-CALCULER
+	R1=CALCULER(LIGNE_COMMANDE, Somme(Quantité*PuHt), Somme(Quantité))
+
+-REGROUPER_ET_CALCULER
+	R2=REGROUPER_ET_CALCULER(LIGNE_COMMANDE, N°BonCommande, MontantHt : Somme(Quantité*PuHt))
+
+-Somme(attribut)
+-Moyenne(attribut)
+-Minimum(attribut)
+-Maximum(attribut)
+-Comptage()
+
+-TRI
+	R = TRI(R0, att1À, att2Å, ...)
+
+**********************************************************************
+
+Equijointure:
+	SELECT emp.empno, emp.ename, emp.deptno, dept.deptno, dept.loc
+	FROM emp, dept
+	WHERE emp.deptno=dept.deptno;
+
+Non-équijointure:
+	Il s'agit là d'utiliser n'importe quelle condition de jointure entre deux tables, 
+	exceptée la stricte égalité
+
+Jointure externe:
+	Les jointures externes permettent de visualiser des lignes qui ne répondent pas
+	à la condition de jointure.
+
+	SQL:
+		SELECT colonnes
+		FROM table_1 LEFT | RIGHT JOIN table_2 
+		ON condition de jointure
+
+Autojointure:
+	unt jointure d'une table avec elle-meme
+
+
+*****************************************************************
+
+> INNER JOIN vs NATURAL JOIN:
+	- In Natural Join, The resulting table will contain all the attributes of both the tables but keep only one copy of each common column
+	- In Inner Join, The resulting table will contain all the attribute of both the tables including duplicate columns also
+
+
+Une base de données relationnelle est un ensemble de relations ou tables à deux dimensions.
+
+> Oracle Database est un système de gestion de base de données relationnelle (SGBDR)
+	vous pouvez stocker et gérer des données avec tous les avantages d'une structure relationnelle.
+
+> Le modèle relationnel:
+	Collections d'objects ou de relations qui stockent les données.
+	représente la base de données comme un ensemble de relations sous forme des entités (des tableaux) reliés entre eux.
+
+
+> MCD "Modèle Conceptuel de Donnée":
+	un modèle qui nous permet de concevoir le schéma de données utilisables dans notre SI
+	Il décrit de façon formelle les données utilisées par le SI
+
+
+> La normalisation du modèle relationnel (et du MCD):
+	L'objectif de la normalisation est de construire un schéma de base de données cohérent.
+	Pour qu’un modèle relationnel soit normalisé, il faut qu’il respecte certaines contraintes appelées les formes normales. Les formes normales s’appuient sur les dépendances fonctionnelles entre attributs.
+
+> Une transaction: 
+	est un ensemble de une ou plusieurs operations ( creation, modification ou suppression de données dans la base ) se terminant par une validation ( commit ) ou une annulation ( rollback ).
+
+> Les formes normales:
+	- 1ère Forme normale (1FN)
+		- Atomique
+		- Non répétitives
+		- Significatives
+		- Une entité doit avoir un identifiant.
+	- 2ère Forme normale
+		- Elle est en 1ère Forme Normale.
+		- toutes ses propriétés différentes de l'identifiant sont en dépendance fonctionnelle avec tout l'identifiant de cette association
+	- 3ère Forme normale
+		- Elle est en 2ère Forme Normale.
+		- Il n'existe pas de dépendance fonctionnelle entre les propriétés non-identifiants.
+
+	- A noter : Un modèle relationnel doit être de troisième forme normale
+
+> Une contrainte d'intégrité:
+	est une règle qui définit la cohérence d'une donnée ou d'un ensemble de données de la BD.
+	- Les clés étrangères permettent de relier les tables (ou relations) entre elles. Les valeurs de ces clés étrangères sont incluses dans le domaine de valeur de la clé primaire dont elles sont issues.
+
+
+
+
