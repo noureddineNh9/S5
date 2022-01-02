@@ -62,8 +62,8 @@ select last_name, job_id, salary from employees where job_id in('SA_REP','ST_CLE
 /*s Q15 */
 select last_name as 'Employee', salary as 'Monthly Salary', commission_pct as 'COMMISSION_PCT' from employees where commission_pct = 0.2;
 
-
 /* ------------- Exercice 3 -------------- */
+
 /*Q1*/
 SELECT sysdate "Date"
 FROM dual;

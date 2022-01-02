@@ -1,0 +1,21 @@
+> Cas d’utilisation : 
+	- Décrit les fonctions du système selon le point de vue ses futurs utilisateurs (Jacobson)
+	- interactions entre le système et les utilisateurs (et autres systèmes externes). Il aide dans la visualisation des exigences / besoins
+
+> Diagramme de séquence :
+	représentation des interactions temporelles entre objets dans la réalisation d’une interface Homme Système.
+
+> Diagramme d’activités :
+	- structure d’une opération en actions
+	- Pour représenter le comportement (ou une partie du comportement) d’opérations d’une classe
+
+> Diagramme de classes :
+	structure des données du système définies comme un ensemble de relations entre classes
+
+> Diagramme d’objets :
+	illustration des objets et de leur relations
+
+> Diagramme d’états-transitions :
+	représentation du comportement des objets d’une classe en terme d’états et de transitions d’états
+
+

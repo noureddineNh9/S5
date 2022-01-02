@@ -1,0 +1,237 @@
+Exercices  Algèbre relationnelle
+
+ 
+
+Exercice1 :
+
+ 
+
+On considère la base de données BD AIRBASE suivante :
+
+- PILOTE (NUMPIL , NOMPIL, ADR , SAL )
+
+- AVION (NUMAV , NOMAV , CAP , LOC )
+
+- VOL (NUMVOL , NUMPIL , NUMAV , VILLE_DEP , VILLE_ARR , H_DEP , H_ARR )
+
+Convention :
+
+Les clés primaires sont soulignées et les clés étrangères sont en italique .
+
+ 
+
+a. Expression des projections et sélections
+
+Q1 : Donnez la liste des avions dont la capacité est supérieure à 350 passagers.
+
+Q2 : Quels sont les numéros et noms des avions localisés à Nice ?
+
+Q3 : Quels sont les numéros des pilotes en service et les villes de départ de leurs vols ?
+
+Q4 : Donnez toutes les informations sur les pilotes de la compagnie.
+
+Q5 : Quel est le nom des pilotes domiciliés à Paris dont le salaire est supérieur à 15000
+
+ 
+
+b. Utilisation des opérateurs ensemblistes
+
+Q6 : Quels sont les avions (numéro et nom) localisés à Nice ou dont la capacité est inférieure à 350
+
+Q7 : Liste des vols au départ de Nice allant à Paris après 18 heures ?
+
+Q8 : Quels sont les numéros des pilotes qui ne sont pas en service ?
+
+Q9 : Quels sont les vols (numéro, ville de départ) effectués par les pilotes de numéro 100 et 204 ?
+
+ 
+
+c. Expression des jointures
+
+Q10 : Donnez le numéro des vols effectués au départ de Nice par des pilotes Niçois ?
+
+Q11 : Quels sont les vols effectués par un avion qui n'est pas localisé à Nice ?
+
+Q12 : Quels sont les pilotes (numéro et nom) assurant au moins un vol au départ de Nice avec un avion de capacité supérieure à 300 places ?
+
+R12.1 = Sélection (AVION / CAP > 300)
+
+R12.2 = Jointure (R7.1, R12.1 / NUMAV = NUMAV) R7.1 générée pour Q7
+
+R12.3 = Jointure (R12.2, PILOTE / NUMPIL = NUMPIL)
+
+R12.4 = Projection (R12.3 / NUMPIL, NOMPIL)
+
+Q13 : Quels sont les noms des pilotes domiciliés à Paris assurant un vol au départ de Nice avec un Airbus ?
+
+Q14 : Quels sont les numéros des vols effectués par un pilote Niçois au départ ou à l'arrivée de Nice avec un avion localisé à Paris ?
+
+Q15 : Quels sont les pilotes (numéro et nom) habitant dans la même ville que le pilote Dupont ?
+
+Q16 : Quels sont les numéros des pilotes en service différents de celui de Durand ?
+
+Q17 : Quelles sont les villes desservies à partir de la ville d'arrivée d'un vol au départ de Paris ?
+
+Q18 : Quels sont les appareils (leur numéro) localisés dans la même ville que l'avion numéro 100 ?
+
+ 
+
+d. Divers …
+
+Q19 : Quels sont les numéros et noms des pilotes domiciliés dans la même ville que le pilote Dupont et dont le salaire est supérieur à celui de Dupont ?
+
+Q20 : Quels sont les numéros et noms des pilotes qui effectuent un vol au départ de leur ville de résidence ?
+
+Q21 : Y a-t-il des homonymes parmi les pilotes ? Si oui, donner leur numéro et nom.
+
+ 
+
+ 
+
+
+
+ 
+
+ 
+
+ 
+
+Solutions
+
+ 
+
+R1.1 = Sélection (AVION / CAP > 350)
+
+R2.1 = Sélection (AVION / LOC = 'NICE')
+
+R2.2 = Projection (R2.1 / NUMAV, NOMAV)
+
+R3.1 = Projection (VOL / NUMPIL, VILLE_DEP)
+
+R4.1 = PILOTE
+
+F ?
+
+R5.1 = Sélection (PILOTE / ADR = 'PARIS')
+
+R5.2 = Sélection (R5.1 / SAL > 15000)
+
+R5.3 = Projection (R5.2 / NOMPIL)
+
+passagers ?
+
+R6.1 = Sélection (AVION / CAP < 350)
+
+R6.2 = Projection (R6.1 / NUMAV, NOMAV)
+
+R6.2 = Union (R2.2, R6.2) où R2.2 est la relation temporaire
+
+R7.1 = Sélection (VOL / VILLE_DEP = 'NICE')
+
+R7.2 = Sélection (VOL / VILLE_ARR = 'PARIS')
+
+R7.3 = Sélection (VOL / H_DEP > 18.00)
+
+R7.4 = Intersection (R7.1, R7.2)
+
+R7.5 = Intersection (R7.3, R7.4)
+
+R8.1 = Projection (PILOTE / NUMPIL)
+
+R8.2 = Projection (VOL / NUMPIL)
+
+R8.3 = Différence (R8.1 , R8.2)
+
+R9.1 = Sélection (VOL / NUMPIL = 100)
+
+R9.2 = Sélection (VOL / NUMPIL = 204)
+
+R9.3 = Union (R8.1, R8.2)
+
+R9.4 = Projection (R8.3 / NUMVOL, VILLE_DEP)
+
+R10.1 = Sélection (PILOTE / ADR = 'NICE')
+
+R10.2 = Jointure (R10.1, R7.1 / NUMPIL = NUMPIL) R7.1 générée pour
+
+Q7
+
+R10.3 = Projection (R10.2 / NUMVOL)
+
+R11.1 = Sélection (AVION / LOC ≠ 'NICE')
+
+R11.2 = Jointure (VOL, R11.1 / NUMAV = NUMAV)
+
+R11.3 = Projection (R11.2 / NUMVOL, VILLE_DEP, VILLE_ARR)
+
+R13.1 = Sélection (AVION / NOMAV = 'AIRBUS')
+
+R13.2 = Jointure (R7.1, R13.1 / NUMAV = NUMAV) R7.1 générée pour Q7
+
+R13.3 = Jointure (R13.2, R5.1 / NUMPIL = NUMPIL) R5.1 générée pour
+
+Q5
+
+R13.4 = Projection (R13.3 / NOMPIL)
+
+R14.1 = Sélection (VOL / VILLE_ARR = 'NICE')
+
+R14.2 = Union (R14.1, R7.1)
+
+R14.3 = Sélection (AVION / LOC = 'PARIS')
+
+R14.4 = Jointure (R14.2, R14.3 / NUMAV = NUMAV)
+
+R14.5 = Jointure (R14.4, R10.1 / NUMPIL = NUMPIL) R10.1 Cf Q10
+
+R14.6 = Projection (R14.5 / NUMVOL)
+
+R15.1 = Sélection (PILOTE / NOMPIL = 'DUPONT')
+
+R15.2 = Jointure (PILOTE, R15.1 / ADR = ADR)
+
+R15.3 = Projection (R15.2 / NUMPIL, NOMPIL)
+
+R16.1 = Sélection (PILOTE / NOMPIL ≠ 'DURAND')
+
+R16.2 = Jointure (VOL, R16.1 / NUMPIL = NUMPIL)
+
+R16.3 = Projection (R16.2 / NUMPIL)
+
+R17.1 = Sélection (VOL / VILLE_DEP = 'PARIS')
+
+R17.2 = Jointure (VOL, R17.1 / VILLE_DEP = VILLE_ARR)
+
+R17.3 = Projection (R17.2 / VILLE_ARR)
+
+R18.1 = Sélection (AVION / NUMAV = 100)
+
+R18.2 = Jointure (AVION, R18.1 / LOC = LOC)
+
+R18.3 = Projection (R18.2 / NUMAV)
+
+R18.4 = Sélection (R18.3 / NUMAV ≠ 100)
+
+R19.1 = Jointure (PILOTE, R15.1 / SAL > SAL) où R15.1 est générée
+
+pour Q15
+
+R19.2 = Projection (R19.1 / NUMPIL, NOMPIL)
+
+R19.3 = Intersection (R15.3, R19.2) où R15.3 est générée pour Q15
+
+R20.1 = Projection (PILOTE / NUMPIL, ADR)
+
+R20.2 = Intersection (R20.1, R3.1) où R3.1 est générée pour Q3
+
+R20.3 = Jointure (R20.2, PILOTE / NUMPIL = NUMPIL)
+
+R20.4 = Projection (R20.3 / NUMPIL, NOMPIL)
+
+R21.1 = Jointure (PILOTE, PILOTE / NOMPIL = NOMPIL)
+
+R21.2 = Jointure (PILOTE, PILOTE / NUMPIL = NUMPIL)
+
+R21.3 = Différence (R21.1, R21.2)
+
+R21.4 = Projection (R21.3 / NUMPIL, NOMPIL)

@@ -74,7 +74,7 @@ SQL:
 	select Ph.numPhotog, Ph.nom
 	from Photographe Ph JOIN PriseDeVue Pr ON (Ph.PhnumPhotog=Pr.Prproprietaire) 
 	JOIN Module M ON (Pr.numMod=M.numMod) 
-	where Ph.prenom='Laetitia' AND Ph.nom='Casta';
+	where Ph.prenom ='Laetitia' AND Ph.nom='Casta';
 4.
 	R41 = Projection( Photographe / numPhotog)
 	R42 = Projection( Commande / numPhotog)
