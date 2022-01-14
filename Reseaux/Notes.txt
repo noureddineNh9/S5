@@ -1,0 +1,46 @@
+UDP:
+	est protocole sans connexion
+TCP:
+	est protocole avec connexion
+
+Ethernet, Wifi : 
+	protocoles de la liaison de données
+
+IP:
+	protocoles de la couche réseau
+
+
+> Couche physique :
+	- Assurer la transmission des bits sur les moyens physiques d’interconnexion (cable coaxial, fibre, microondes, etc.).
+
+> Couche liaison de données :
+	- Contrôle d’erreurs 
+	- Contrôle de flux ( capacité des trames )
+	- Gestion de lien
+	- La synchronisation ( Mécanisme qui permet la reconnaissance du début et de fin de trame )
+
+> Couche Reseaux :
+	- Fragmentation (par le routeur)
+	- Routage ( but : trouver le meilleur chemin pour acheminer le paquet )
+
+
+
+
+
+AA AA AA AA AA AA 
+
+07 01 08 12 20 de :: c2 1d 5e 08
+
+
+07 01 08 12 20 de AA AA AA AA AA AA 08 06 00 01
+08 00 06 04 00 02 AA AA AA AA AA AA c2 1d 5e 01
+07 01 08 12 20 de c2 1d 5e 08 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00
+
+
+
+
+
+
+
+

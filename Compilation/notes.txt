@@ -1,0 +1,18 @@
+Phase d'analyse:
+	> Analyse lexicale :
+
+	> Analyse syntaxique :
+		- regroupement des unités lexicales en structure grammaticale 
+
+	> Analyse sémantique :
+		- Dans cette étape le compilateur vérifie le sens des phrases 
+
+
+Phase de synthèse : 
+	( Le résultat de cette étape est le programme cible. )
+	> generation de code
+	> optimisation de code 
+
+Phase en parallèle :
+	> Gestion de la table des symboles 
+	> Gestion des erreurs 

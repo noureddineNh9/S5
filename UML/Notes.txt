@@ -1,21 +1,31 @@
+
+> class : description abstraite d'un ensemble d'objets.
+> object : instance de class, representation individuel.
+> scenario : est une séquence d'evenements, chemin particulier d'exécution.
+> action : operation executer par le system.
+> evenemment : les actions qui vient a l'exterieure. 
+> activité : c'est une tache executer par le systeme (prend du temps).
+
+
+
+> Diagramme de Contexte : 
+	- Permet de specifier le nombre d'instances des acteurs connectés au systeme a un  moment donné.
+
 > Cas d’utilisation : 
-	- Décrit les fonctions du système selon le point de vue ses futurs utilisateurs (Jacobson)
-	- interactions entre le système et les utilisateurs (et autres systèmes externes). Il aide dans la visualisation des exigences / besoins
+	- Décrit les fonctions du système selon le point de vue ses futurs utilisateurs
 
 > Diagramme de séquence :
-	représentation des interactions temporelles entre objets dans la réalisation d’une interface Homme Système.
-
-> Diagramme d’activités :
-	- structure d’une opération en actions
-	- Pour représenter le comportement (ou une partie du comportement) d’opérations d’une classe
-
+	- Description du scénarios principale d'un cas d'utilisation
+	
 > Diagramme de classes :
-	structure des données du système définies comme un ensemble de relations entre classes
+	- decrit la structure d'un systeme en modélisent ses classes, ses attributs et ses operations.
 
 > Diagramme d’objets :
-	illustration des objets et de leur relations
+	- illustration des objets et de leur relations
 
 > Diagramme d’états-transitions :
-	représentation du comportement des objets d’une classe en terme d’états et de transitions d’états
+	- represente le cycle de vie des instances d'une classe.
+	- Spécifier les états, les transitions entre états et les actions associées aux transitions.
 
-
+> Diagramme d’activités :
+	- Pour représenter le comportement (ou une partie du comportement) d’opérations d’une classe
