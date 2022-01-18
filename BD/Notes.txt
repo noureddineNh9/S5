@@ -96,6 +96,18 @@ Autojointure:
 	- In Inner Join, The resulting table will contain all the attribute of both the tables including duplicate columns also
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 Une base de données relationnelle est un ensemble de relations ou tables à deux dimensions.
 
 > Oracle Database est un système de gestion de base de données relationnelle (SGBDR)
@@ -107,16 +119,13 @@ Une base de données relationnelle est un ensemble de relations ou tables à deu
 
 
 > MCD "Modèle Conceptuel de Donnée":
-	un modèle qui nous permet de concevoir le schéma de données utilisables dans notre SI
-	Il décrit de façon formelle les données utilisées par le SI
+	- permet d'identifier les pricipales entitée a representer leurs 
 
 
 > La normalisation du modèle relationnel (et du MCD):
-	L'objectif de la normalisation est de construire un schéma de base de données cohérent.
-	Pour qu’un modèle relationnel soit normalisé, il faut qu’il respecte certaines contraintes appelées les formes normales. Les formes normales s’appuient sur les dépendances fonctionnelles entre attributs.
-
-> Une transaction: 
-	est un ensemble de une ou plusieurs operations ( creation, modification ou suppression de données dans la base ) se terminant par une validation ( commit ) ou une annulation ( rollback ).
+	- L'objectif de la normalisation est de construire un schéma de base de données cohérent.
+	- Pour qu’un modèle relationnel soit normalisé, il faut qu’il respecte certaines contraintes appelées les formes normales. Les formes normales s’appuient sur les dépendances fonctionnelles entre attributs.
+	- est la conversion d'une table de base de données a un degré plus eleve de forme normale 
 
 > Les formes normales:
 	- 1ère Forme normale (1FN)
@@ -133,10 +142,48 @@ Une base de données relationnelle est un ensemble de relations ou tables à deu
 
 	- A noter : Un modèle relationnel doit être de troisième forme normale
 
+
+> Une transaction: 
+	est un ensemble de une ou plusieurs operations ( creation, modification ou suppression de données dans la base ) se terminant par une validation ( commit ) ou une annulation ( rollback ).
+
+
+
+
 > Une contrainte d'intégrité:
 	est une règle qui définit la cohérence d'une donnée ou d'un ensemble de données de la BD.
 	- Les clés étrangères permettent de relier les tables (ou relations) entre elles. Les valeurs de ces clés étrangères sont incluses dans le domaine de valeur de la clé primaire dont elles sont issues.
 
+> association
+	- Une relation ou association est la liaison qui lie entre les entités du modèle de donnée.
+
+les composents du MCD:
+	- Les entités.
+	- Les propriétés.
+	- Les relations qui expliquent et précisent comment les entités sont reliées entre elles.
+	- Les cardinalités.
+
+> Table:
+	- Unité de stockage élémentaire, composée de lignes et de colonnes
+
+> Vue :
+	- Représente de manière logique des sous-groupes de données issues d'une ou plusieurs tables
 
 
+/************************ Exam 16/17 *************************/
 
+Exercice 3:
+	3:
+		- Commande(NumCommande,#numClientn, #numProduit , DateCom, QuantitéCom)
+		- Produit(numProduit, PrixUnitaire)
+		- Client(numClient, AdresseClient)
+
+/************************ Exam 03 (smi FSAC) *************************/
+
+Exercice 4:
+	N_conferencier ----> NomConférencier, Laboratoire_affeliation
+	NomConférence, N_conferencier ----> Sujet_Présenté, Date_conférence, Lieu_conférence
+
+MLD: 
+	- confirence( N_conference, Nomconference )
+	- confirencirer(N_confirencier , NomConferencier , laboratoir_affelation )
+	- presentation ( #N_confirencier,#N_conference , Sujet_Présenté, Date_conférence, Lieu_conférence)
