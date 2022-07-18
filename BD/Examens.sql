@@ -1,17 +1,5 @@
 ****************************** Exam 19/20 **********************************
 
-select department_id 
-from hr.departments
-where department_id not in (
-    select NVL(department_id, 0) from hr.employees
-);
-
-
-select E1.last_name, E2.last_name, E3.last_name, E1.salary + E2.salary + E3.salary as total
-from hr.employees E1, hr.employees E2, hr.employees E3 
-where E1.employee_id <> E2.employee_id and E1.employee_id <> E3.employee_id and E2.employee_id <> E3.employee_id and total<60000;
-
-
 /* Exercice 2 */
 1-
 Alg:
@@ -23,21 +11,27 @@ Alg:
 SQL:
 	select nom, prenom 
 	from vendeur 
-	where num_vendeur NOT IN (select NVL(num_vendeur, 0) from VENTE);
+	where num_vendeur NOT IN (select num_vendeur from VENTE);
 2-
 Alg:
-	R21 = Jointure(VENDEUR, VENDEUR / num_magazin = num_magazin AND num_vendeur != num_vendeur )
+	R21 = Projection(VENDEUR / num_magazin, vendeur_1 : num_vendeur)
+	R22 = Projection(VENDEUR / num_magazin, vendeur_2 : num_vendeur)
+	R21 = Jointure(R21, R22 / num_magazin = num_magazin AND vendeur_1 != vendeur_2 )
 SQL:
 	select V1.nom as membre_1, V2.nom as membre_2 
 	from VENDEUR V1, VENDEUR V2 
 	where V1.num_magazin = V2.num_magazin AND V1.num_vendeur <> V2.num_vendeur;
 3-
 Alg:
-	R31 = Projection(PIECE / piece_1 : num_piece )
-    	R32 = Projection(PIECE / piece_2 : num_piece )
+	R31 = Projection(PIECE / piece_1 : num_piece, prix_1 : prix_unitaire )
+    R32 = Projection(PIECE / piece_2 : num_piece, prix_2 : prix_unitaire )
+    R33 = Projection(PIECE / piece_3 : num_piece, prix_3 : prix_unitaire )
 
-	R33 = jointure(R41, R42 / piece_1 != piece _2)
-	R34 = jointure(R31, PIECE / num_piece != piece _1 ET num_piece != piece _2 )
+	R34 = jointure(R31, R32 / piece_1 != piece _2)
+	R35 = jointure(R34, R33 / piece_3 != piece _1 ET piece_3 != piece _2 )
+	R36 = Selection(R35 / prix_1 + prix_2 + prix_3 < 60000 )
+	R37 = Projection(R36 / piece_1, piece_2, piece_3 )
+
 
 SQL:
 	select P1.num_piece as piece_1, P2.num_piece as piece_2, P3.num_piece as piece_3
@@ -47,15 +41,13 @@ SQL:
 	and P1.num_piece != P3.num_piece 
 	and (P1.prix_unitaire + P2.prix_unitaire + P3.prix_unitaire) < 60000;
 4-
-    	R41 = Selection(PIECE / quantite < seuil)
+    R41 = Selection(PIECE / quantite < seuil)
 	R42 = Jointure(R41, Magazin / num_magazin )
-    	R43 = Projection(R42 / num_magazin, destination, ville)
+    R43 = Projection(R42 / num_magazin, destination, ville)
 
-    	select M.num_magazin, M.destination, M.ville
+    select M.num_magazin, M.destination, M.ville
 	from Magazin M, Piece P
 	where M.num_magazin = P.num_magazin AND P.quantité < P.seuil;
-
-
 
 
 5-
@@ -69,11 +61,11 @@ SQL:
 	GROUP BY mag, ville;
 
 6-
-	R61 =  ROUGROUPER_ET_CALCULER(PIECE, num_magazin, somme : somme( quantite))
-    	R62 = Selection( R61 / somme >= 1000 )
-    	R63 = Jointure( R62, Magazin / num_magazin = num_magazin )
+	R61 = ROUGROUPER_ET_CALCULER(PIECE, num_magazin, nb_piece : comptage( num_piece))
+    R62 = Selection( R61 / nb_piece >= 1000 )
+    R63 = Jointure( R62, Magazin / num_magazin = num_magazin )
 
-    select *  from magazin 
+    select * from magazin 
     where num_magazin IN (
         select num_magazin from PIECE 
         group by num_magazin
@@ -90,8 +82,6 @@ SQL:
 /* Exercice 3 */
 
 
-
-
 3-
 
 select V1.num_serie, V1.modele 
@@ -104,49 +94,20 @@ select VENDEUR.ID_M, count(VENDEUR.num_serie) cmp
 from VENDEUR JOIN VENDRE
 ON( VENDEUR.id_vendeur = VENDRE.id_vendeur) 
 GROUP BY VENDEUR.ID_M
-ORDER BY cmp ASC;
-
-
+ORDER BY cmp DESC;
 
 5.
-
 
 select A.nom, A.prenom, count(*) C
 from VENDEUR A, VENTE B
 Where A.id_vendeur=B.id_vendeur and to_char(B.date_v, 'YYYY')=2019
 GROUP BY A.nom, A.prenom
 HAVING C >= all (
-	select Count(*) as nb from VENTE where to_char(B.date_v, 'YYYY')=2019 group by id_vendeur
+	select Count(*) as nb 
+	from VENTE 
+	where to_char(B.date_v, 'YYYY')=2019 
+	group by id_vendeur
 )
-
-
-/*
-
-
-select V1.nom, V1.prenom, count(V2.num_serie) C
-from VENDEUR V1, VENDRE V2
-where V1.id_vendeur = V2.id_vendeur AND TO_CHAR(V2.date_v, 'YYYY') = 2019
-GROUP BY V1.id_vendeur, V1.nom, V1.prenom
-HAVING C = (
-	select MAX(count(*)) from VENDRE 
-	GROUP BY id_vendeur; 
-)
-
-
-
-select * from(
-   	select a.nom, a.prenom from 
-	VENDEUR a JOIN 
-		(select id_vendeur, count(date_v) num 
-		 from VENDRE where to_char(date_v, 'YYYY')=2019 
-		 group by id_vendeur) b
-	ON(A.id_vendeur=B.id_vendeur)
-	order by num
-)
-where rownum=1;
-
-
-*/
 
 
 6.
@@ -197,23 +158,23 @@ HAVING C >= all (
 	R24 = Projection(R23 / nom, prenom, dateVue)
 
 	select Ph.nom, Ph.prenom, Pr.dateVue 
-	from Photographe Ph JOIN PriseDeVue Pr 
-	ON (PhnumPhotog=Prproprietaire) 
-	where Pr.dateVue > '30-04-2004' AND Ph.prenom='Frederic' AND Ph.nom='Cresseux';
+	from Photographe Ph, PriseDeVue Pr 
+	where PhnumPhotog=Prproprietaire 
+	AND Pr.dateVue > '30-04-2004' AND Ph.prenom='Frederic' AND Ph.nom='Cresseux';
 3.
 	R31 = Jointure(Photographe, PriseDeVue / numPhotog=proprietaire)
-	R32 = Jointure(R31, Modele / numModele)
-	R33 = Selection(R32 / prenom='Laetitia' AND nom='Casta')
-	R24 = Projection(R23 / numPhotog, nom)
+	R32 = Selection(Modele / prenom ='Laetitia' ET nom='Casta')
+	R33 = Jointure(R31, R32 / numModele)
+	R34 = Projection(R34 / numPhotog, nom)
 
-	select Ph.numPhotog, Ph.nom
-	from Photographe Ph JOIN PriseDeVue Pr ON (Ph.PhnumPhotog=Pr.Prproprietaire) 
-	JOIN Module M ON (Pr.numMod=M.numMod) 
-	where Ph.prenom ='Laetitia' AND Ph.nom='Casta';
+	select DISTINCT Ph.numPhotog, Ph.nom
+	from Photographe Ph, PriseDeVue, Module 
+	where Ph.PhnumPhotog=Pr.Prproprietaire and Pr.numMod=M.numMod
+	and M.prenom ='Laetitia' AND M.nom='Casta';
 4.
 	R41 = Projection( Photographe / numPhotog)
 	R42 = Projection( Commande / numPhotog)
-	R43 = Intersection(R41, R42)
+	R43 = DIFFERENCE(R41, R42)
 	R44 = Jointure(Photographe, R43 / numPhotog)
 	R45 = Selection(R44 / nom, prenom)
 

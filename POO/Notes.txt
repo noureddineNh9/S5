@@ -5,12 +5,10 @@ Les concepts clés de la POO:
 	- structure rassemblant à la fois les données et les méthodes pour les manipuler (c’est l’équivalent du type).
 
 > Les objets : 
-	- un objet est un bloc de code mêlant des variables et des fonctions, appelées respectivement attributs et méthodes. Les attributs définissent les caractéristiques d’un objet d’une classe, les méthodes définissent quant à elles les fonctions propres aux instances d’une classe.
 	- un objet est une instance de classe (équivalent de la variable). C'est la représentation 'physique' du modèle décrit dans la classe.
 
 > L’encapsulation : 
-	- l'encapsulation permet d’enfermer dans une capsule les données brutes afin d’éviter des erreurs de manipulation ou de corruptions des données. 
-	- L’encapsulation permet ainsi de cacher des méthodes et des attributs à l’extérieur de la classe.
+	- il faut obligatoirement passer par l'un des methodes pour acceder aux données privés
 
 > L’abstraction : 
 	- le concept d’abstraction consiste à cacher les détails inutiles à l’utilisateur final d’une classe. Il va ainsi pouvoir utiliser une classe dans son code de programmation tout en ne sachant pas comment celle-ci a été développée.
@@ -24,16 +22,9 @@ Les concepts clés de la POO:
 
 > Constructeur/Destructeur : 
 	- ce sont deux méthodes appelées systématiquement lors de la création (instanciation) d'un objet et de sa destruction (libération). Le constructeur porte le même nom que la classe, le destructeur également, mais précédé du signe ~.
+
 > Surcharge/Surdéfinition : 
 	- permet d’avoir plusieurs méthodes du même nom mais avec des paramètres différents (nombre et/ou type).
-
-
-
-
-
-
-
-
 
 
 
